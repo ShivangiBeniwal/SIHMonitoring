@@ -6,6 +6,7 @@
 package com.mycompany.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -33,7 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
     @NamedQuery(name = "Address.findByAid", query = "SELECT a FROM Address a WHERE a.aid = :aid"),
-    @NamedQuery(name = "Address.findByPincode", query = "SELECT a FROM Address a WHERE a.pincode = :pincode")})
+    @NamedQuery(name = "Address.findByPincode", query = "SELECT a FROM Address a WHERE a.pincode = :pincode"),
+    @NamedQuery(name = "Address.findByLat", query = "SELECT a FROM Address a WHERE a.lat = :lat"),
+    @NamedQuery(name = "Address.findByLongitude", query = "SELECT a FROM Address a WHERE a.longitude = :longitude")})
 public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,6 +66,9 @@ public class Address implements Serializable {
     @Lob
     @Size(min = 1, max = 65535)
     private String state;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    private BigDecimal lat;
+    private BigDecimal longitude;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aid")
     private Collection<Task> taskCollection;
 
@@ -128,6 +134,22 @@ public class Address implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public BigDecimal getLat() {
+        return lat;
+    }
+
+    public void setLat(BigDecimal lat) {
+        this.lat = lat;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
     }
 
     @XmlTransient

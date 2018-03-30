@@ -24,11 +24,13 @@ public class DistrictDisplay_Access
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Map<String,DistrictDisplay> actionMap = new HashMap<String,DistrictDisplay>();
                 
+		try
+		{                   
+                
                 String SQL ="SELECT * FROM TASK where OID = (SELECT OID FROM OFFICER WHERE TOKEN_ID = "+TOKEN_ID+") ";
 		PreparedStatement stmt = con.prepareStatement(SQL);
 		ResultSet rs = stmt.executeQuery();
-		try
-		{
+                
                         DistrictDisplay districtDisplayObj = new DistrictDisplay();                        
 			while(rs.next())
 			{         

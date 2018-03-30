@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
-    @NamedQuery(name = "Question.findByQid", query = "SELECT q FROM Question q WHERE q.qid = :qid")})
+    @NamedQuery(name = "Question.findByQid", query = "SELECT q FROM Question q WHERE q.qid = :qid"),
+    @NamedQuery(name = "Question.findByRequired", query = "SELECT q FROM Question q WHERE q.required = :required")})
 public class Question implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,6 +62,9 @@ public class Question implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "VISIT_TYPE")
     private String visitType;
+    @Basic(optional = false)
+    @NotNull
+    private short required;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
     private Collection<Answer> answerCollection;
     @JoinColumn(name = "PID", referencedColumnName = "PID")
@@ -74,11 +78,12 @@ public class Question implements Serializable {
         this.qid = qid;
     }
 
-    public Question(Integer qid, String question, String format, String visitType) {
+    public Question(Integer qid, String question, String format, String visitType, short required) {
         this.qid = qid;
         this.question = question;
         this.format = format;
         this.visitType = visitType;
+        this.required = required;
     }
 
     public Integer getQid() {
@@ -119,6 +124,14 @@ public class Question implements Serializable {
 
     public void setVisitType(String visitType) {
         this.visitType = visitType;
+    }
+
+    public short getRequired() {
+        return required;
+    }
+
+    public void setRequired(short required) {
+        this.required = required;
     }
 
     @XmlTransient

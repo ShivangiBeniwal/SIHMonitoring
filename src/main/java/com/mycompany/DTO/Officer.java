@@ -14,9 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -54,10 +52,8 @@ public class Officer implements Serializable {
     @Lob
     @Size(min = 1, max = 65535)
     private String name;
-    @Basic(optional = false)
-    @NotNull
     @Lob
-    @Size(min = 1, max = 65535)
+    @Size(max = 65535)
     private String designation;
     @Basic(optional = false)
     @NotNull
@@ -65,13 +61,9 @@ public class Officer implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "EMAIL_ID")
     private String emailId;
-    @Basic(optional = false)
-    @NotNull
-    private int mobile;
-    @Basic(optional = false)
-    @NotNull
+    private Integer mobile;
     @Column(name = "AADHAR_CARD")
-    private int aadharCard;
+    private Integer aadharCard;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -98,9 +90,6 @@ public class Officer implements Serializable {
     private String adminRights;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oid")
     private Collection<Task> taskCollection;
-    @JoinColumn(name = "OFFICE_ID", referencedColumnName = "OFFICE_ID")
-    @ManyToOne(optional = false)
-    private Office officeId;
 
     public Officer() {
     }
@@ -109,13 +98,10 @@ public class Officer implements Serializable {
         this.oid = oid;
     }
 
-    public Officer(Integer oid, String name, String designation, String emailId, int mobile, int aadharCard, String password, String tokenId, String doj, String rtd, String adminRights) {
+    public Officer(Integer oid, String name, String emailId, String password, String tokenId, String doj, String rtd, String adminRights) {
         this.oid = oid;
         this.name = name;
-        this.designation = designation;
         this.emailId = emailId;
-        this.mobile = mobile;
-        this.aadharCard = aadharCard;
         this.password = password;
         this.tokenId = tokenId;
         this.doj = doj;
@@ -155,19 +141,19 @@ public class Officer implements Serializable {
         this.emailId = emailId;
     }
 
-    public int getMobile() {
+    public Integer getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(Integer mobile) {
         this.mobile = mobile;
     }
 
-    public int getAadharCard() {
+    public Integer getAadharCard() {
         return aadharCard;
     }
 
-    public void setAadharCard(int aadharCard) {
+    public void setAadharCard(Integer aadharCard) {
         this.aadharCard = aadharCard;
     }
 
@@ -218,14 +204,6 @@ public class Officer implements Serializable {
 
     public void setTaskCollection(Collection<Task> taskCollection) {
         this.taskCollection = taskCollection;
-    }
-
-    public Office getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(Office officeId) {
-        this.officeId = officeId;
     }
 
     @Override

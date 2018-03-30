@@ -29,11 +29,9 @@ public class Officer_Access
 			while(rs.next())
 			{
 				Officer officerObj = new Officer();
-                                Office_Access oa = new Office_Access();
                                 
 				officerObj.setOid(rs.getInt("OID"));
 				officerObj.setName(rs.getString("NAME"));
-				officerObj.setOfficeId(oa.getOffice(con, rs.getInt("OFFICE_ID")));
 				officerObj.setDesignation(rs.getString("DESIGNATION"));
 				officerObj.setEmailId(rs.getString("EMAIL_ID"));
 				officerObj.setMobile(rs.getInt("MOBILE"));
@@ -64,12 +62,9 @@ public class Officer_Access
 		try
 		{
 			while(rs.next())
-                        { 
-                                Office_Access oa = new Office_Access();
-                                
+                        {                                 
 				officerObj.setOid(rs.getInt("OID"));
 				officerObj.setName(rs.getString("NAME"));
-				officerObj.setOfficeId(oa.getOffice(con, rs.getInt("OFFICE_ID")));
 				officerObj.setDesignation(rs.getString("DESIGNATION"));
 				officerObj.setEmailId(rs.getString("EMAIL_ID"));
 				officerObj.setMobile(rs.getInt("MOBILE"));
@@ -91,24 +86,23 @@ public class Officer_Access
 	public void addOfficer(Connection con, Officer o) throws SQLException
 	{
             DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
-            String SQL_QUERY = "insert into OFFICER values(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String SQL_QUERY = "insert into OFFICER values(?,?,?,?,?,?,?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
                 pst.setInt(1, o.getOid());
                 pst.setString(2, o.getName());
-                pst.setInt(3, o.getOfficeId().getOfficeId());
-                pst.setString(4, o.getDesignation());
-                pst.setString(5, o.getEmailId());
-                pst.setInt(6, o.getMobile());
-                pst.setInt(7, o.getAadharCard());
-                pst.setString(8, o.getPassword());
+                pst.setString(3, o.getDesignation());
+                pst.setString(4, o.getEmailId());
+                pst.setInt(5, o.getMobile());
+                pst.setInt(6, o.getAadharCard());
+                pst.setString(7, o.getPassword());
                 
                 String tokenid = UUID.randomUUID().toString();
-                pst.setString(9, tokenid);
-                pst.setTimestamp(10, new Timestamp(dateFormat.parse(o.getDoj()).getTime()));
-                pst.setTimestamp(11, new Timestamp(dateFormat.parse(o.getRtd()).getTime()));                
-                pst.setString(12, o.getAdminRights());
+                pst.setString(8, tokenid);
+                pst.setTimestamp(9, new Timestamp(dateFormat.parse(o.getDoj()).getTime()));
+                pst.setTimestamp(10, new Timestamp(dateFormat.parse(o.getRtd()).getTime()));                
+                pst.setString(11, o.getAdminRights());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -122,23 +116,22 @@ public class Officer_Access
 	public void updateOfficer(Connection con, int OID, Officer o) throws SQLException
 	{
             DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
-            String SQL_QUERY = "update OFFICER set NAME = ?, OFFICE_ID = ?, DESIGNATION = ?, EMAIL_ID = ?, "
-                    + "MOIBILE = ?, AADHAR_CARD = ?, PASSWORD = ?, TOKEN_ID = ? ,DOJ = ?, RTD = ?, ADMIN_RIGHTS = ?  where OID = ?";
+            String SQL_QUERY = "update OFFICER set NAME = ?, DESIGNATION = ?, EMAIL_ID = ?, MOIBILE = ?, "
+                    + "AADHAR_CARD = ?, PASSWORD = ?, TOKEN_ID = ? ,DOJ = ?, RTD = ?, ADMIN_RIGHTS = ?  where OID = ?";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
                 pst.setString(1, o.getName());
-                pst.setInt(2, o.getOfficeId().getOfficeId());
-                pst.setString(3, o.getDesignation());
-                pst.setString(4, o.getEmailId());
-                pst.setInt(5, o.getMobile());
-                pst.setInt(6, o.getAadharCard());
-                pst.setString(7, o.getPassword());
-                pst.setString(8, o.getTokenId());
-                pst.setTimestamp(9, new Timestamp(dateFormat.parse(o.getDoj()).getTime()));
-                pst.setTimestamp(10, new Timestamp(dateFormat.parse(o.getRtd()).getTime()));                
-                pst.setString(11, o.getAdminRights());
-                pst.setInt(12, OID);
+                pst.setString(2, o.getDesignation());
+                pst.setString(3, o.getEmailId());
+                pst.setInt(4, o.getMobile());
+                pst.setInt(5, o.getAadharCard());
+                pst.setString(6, o.getPassword());
+                pst.setString(7, o.getTokenId());
+                pst.setTimestamp(8, new Timestamp(dateFormat.parse(o.getDoj()).getTime()));
+                pst.setTimestamp(9, new Timestamp(dateFormat.parse(o.getRtd()).getTime()));                
+                pst.setString(10, o.getAdminRights());
+                pst.setInt(11, OID);
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" update-----Access");
@@ -232,7 +225,6 @@ public class Officer_Access
                                 
 				officerObj.setOid(rs.getInt("OID"));
 				officerObj.setName(rs.getString("NAME"));
-				officerObj.setOfficeId(oa.getOffice(con, rs.getInt("OFFICE_ID")));
 				officerObj.setDesignation(rs.getString("DESIGNATION"));
 				officerObj.setEmailId(rs.getString("EMAIL_ID"));
 				officerObj.setMobile(rs.getInt("MOBILE"));

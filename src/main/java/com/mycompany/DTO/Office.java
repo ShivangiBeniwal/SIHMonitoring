@@ -6,9 +6,7 @@
 package com.mycompany.DTO;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -65,8 +61,6 @@ public class Office implements Serializable {
     @Lob
     @Size(min = 1, max = 65535)
     private String state;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "officeId")
-    private Collection<Officer> officerCollection;
 
     public Office() {
     }
@@ -130,15 +124,6 @@ public class Office implements Serializable {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    @XmlTransient
-    public Collection<Officer> getOfficerCollection() {
-        return officerCollection;
-    }
-
-    public void setOfficerCollection(Collection<Officer> officerCollection) {
-        this.officerCollection = officerCollection;
     }
 
     @Override
