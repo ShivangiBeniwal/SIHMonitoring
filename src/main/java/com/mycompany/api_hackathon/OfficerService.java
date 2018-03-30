@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 @Path("/officerService")
 public class OfficerService implements OfficerServiceInterface
@@ -206,9 +207,9 @@ public class OfficerService implements OfficerServiceInterface
     }
     
     @POST
-    @Path("/{id}/{pass}/{name}/signup")
+    @Path("/signup")
     @Produces("application/json")
-    public Response signUPOfficer(@PathParam("id") String  id,  @PathParam("pass") String pass , @PathParam("name") String name) 
+    public Response signUPOfficer(@QueryParam("id") String  id,  @QueryParam("password") String pass , @QueryParam("name") String name) 
     {
 		Response response = new Response();
 		
@@ -219,7 +220,10 @@ public class OfficerService implements OfficerServiceInterface
                     } 
                     catch (Exception ex) 
                     {
+                        response.setStatus(false);
+                        response.setMessage(ex.getMessage());
                         Logger.getLogger(OfficerService.class.getName()).log(Level.SEVERE, null, ex);
+                        return response;
                     }
                     
 		

@@ -12,7 +12,7 @@ public class Database
 			String connectionURL = "jdbc:mysql://localhost:3307/FINAL_DB";
 			Connection connection = null;
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(connectionURL, "root", "system");
+			connection = DriverManager.getConnection(connectionURL, "root", "pe8K=0aZr4#;");
                         System.out.println("--------DB");
 			return connection;
 		} catch (Exception e)
