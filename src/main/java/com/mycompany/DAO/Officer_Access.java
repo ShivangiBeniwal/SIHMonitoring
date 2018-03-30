@@ -28,11 +28,9 @@ public class Officer_Access
 		{
 			while(rs.next())
 			{
-				Officer officerObj = new Officer();
-                                
+				Officer officerObj = new Officer();                
 				officerObj.setOid(rs.getInt("OID"));
 				officerObj.setName(rs.getString("NAME"));
-				officerObj.setDesignation(rs.getString("DESIGNATION"));
 				officerObj.setEmailId(rs.getString("EMAIL_ID"));
 				officerObj.setMobile(rs.getInt("MOBILE"));
 				officerObj.setAadharCard(rs.getInt("AADHAR_CARD"));
@@ -158,12 +156,13 @@ public class Officer_Access
             }		
 	}
 
-    public Officer loginOfficer(Connection con, Login login) 
+    public Officer loginOfficer(Connection con, String email,String pass) 
     {
+        
            Officer feedObject = new Officer();
            try{
                
-               PreparedStatement ps = con.prepareStatement("SELECT OID, PASSWORD from OFFICER where EMAIL_ID = '"+login.getEMAIL_ID()+"'" );
+               PreparedStatement ps = con.prepareStatement("SELECT OID, PASSWORD from OFFICER where EMAIL_ID = '"+email+"'" );
                ResultSet rs = ps.executeQuery();
                        
 			while(rs.next())
@@ -171,10 +170,10 @@ public class Officer_Access
                             int OID= rs.getInt("OID");
                             String actualpass= rs.getString("PASSWORD");
                             
-                            if(login.getPASSWORD().equals(actualpass))
+                            if(pass.equals(actualpass))
                             {
                                 String tokenid = UUID.randomUUID().toString();
-                                PreparedStatement pst = con.prepareStatement( "update OFFICER set TOKENID = '"+tokenid+"' where EMAIL_ID = '"+login.getEMAIL_ID()+"' ");
+                                PreparedStatement pst = con.prepareStatement( "update OFFICER set TOKEN_ID = '"+tokenid+"' where EMAIL_ID = '"+email+"' ");
                                 pst.executeUpdate();                                
                                 
                                 feedObject = getOfficer(con, OID);
@@ -196,7 +195,8 @@ public class Officer_Access
     
     public Officer signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
 	{
-            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = '"+userid+"' "   ;
+
+            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = '"+userid + "'";
             Officer officerObj = new Officer();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
                 
@@ -210,7 +210,7 @@ public class Officer_Access
                     System.out.println(" Already present");
                     
                 }else{
-                     String query = "insert into  OFFICER(EMAIL_ID,PASSWORD, TOKENID, NAME ) values ('"+userid+"',"+password+"' , '"+tokenid+"' , '"+name+"')";  
+                     String query = "insert into  OFFICER(EMAIL_ID , PASSWORD , TOKEN_ID, NAME ) values ('"+userid+"' , '"+password+"' , '"+tokenid+"' , '"+name+"' )";  
                      Statement sm = con.createStatement(); 
                      
                      sm.executeUpdate(query);
@@ -220,17 +220,20 @@ public class Officer_Access
                ResultSet rs1 = ps.executeQuery();
                        
 			while(rs1.next())
-			{                                                            
+
+			{                            
+                                Office_Access oa = new Office_Access();
+
 				officerObj.setOid(rs1.getInt("OID"));
 				officerObj.setName(rs1.getString("NAME"));
-				officerObj.setDesignation(rs1.getString("DESIGNATION"));
 				officerObj.setEmailId(rs1.getString("EMAIL_ID"));
 				officerObj.setMobile(rs1.getInt("MOBILE"));
 				officerObj.setAadharCard(rs1.getInt("AADHAR_CARD"));
                                 officerObj.setPassword(rs1.getString("PASSWORD"));
                                 officerObj.setTokenId(rs1.getString("TOKEN_ID"));
-				officerObj.setDoj(dateFormat.format(new Date(rs1.getDate("DOJ").getTime())));
-				officerObj.setRtd(dateFormat.format(new Date(rs1.getDate("RTD").getTime())));
+				officerObj.setDoj(dateFormat.format(new Date().getTime()));
+				officerObj.setRtd(dateFormat.format(new Date().getTime()));
+
                                 officerObj.setAdminRights(rs1.getString("ADMIN_RIGHTS"));
                         }                    
                 }

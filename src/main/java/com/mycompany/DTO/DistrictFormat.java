@@ -12,7 +12,7 @@ package com.mycompany.DTO;
 public class DistrictFormat 
 {
     String Name;
-    Integer Assigned, Completed, Pending;
+    Integer Assigned, Completed, Pending, VisitCount;
 
     public String getName() {
         return Name;
@@ -44,5 +44,13 @@ public class DistrictFormat
 
     public void setPending(Integer Pending) {
         this.Pending = Pending;
+    }
+
+    public Integer getVisitCount() {
+        return VisitCount;
+    }
+
+    public void setVisitCount(Integer VisitCount) {
+        this.VisitCount = VisitCount;
     }
 }

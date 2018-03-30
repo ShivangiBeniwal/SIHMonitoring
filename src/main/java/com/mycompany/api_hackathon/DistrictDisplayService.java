@@ -3,6 +3,9 @@ package com.mycompany.api_hackathon;
 import com.mycompany.DTO.DistrictDisplay;
 import com.mycompany.DTO.DistrictFormat;
 import com.mycompany.DTO.List.DistrictDisplays;
+import com.mycompany.DTO.List.DistrictFormats;
+import com.mycompany.DTO.List.Visits;
+import com.mycompany.DTO.Task;
 import com.mycompany.Model.DistrictDisplay_AccessManager;
 import java.util.ArrayList;
 
@@ -11,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ws.rs.PathParam;
 
@@ -50,15 +54,31 @@ public class DistrictDisplayService
     @Produces("application/json")
     public DistrictFormat districtDisplay(@PathParam("TOKEN_ID") int TOKEN_ID, @PathParam("Name") String Name) 
     {
-//		String actions = null;
-                actionMap = new HashMap<String,DistrictDisplay>();
-                DistrictDisplays c = new DistrictDisplays();
+                DistrictDisplays c = districtDisplay(TOKEN_ID);
+                DistrictFormat df = new DistrictFormat();
+                
 		try
 		{
-                    actionMap = accessManager.getDistrictDisplays(id);
-                    ArrayList<DistrictDisplay> districtDisplayList = new ArrayList(actionMap.values());                    
-                    c.setDistrictDisplayList(districtDisplayList);
+                    Integer Assigned = 0 , Completed =0 , Pending =0, VisitCount =0;
                     
+                    ArrayList<Task> atask = actionMap.get(Name).getTask();
+                    Assigned = atask.size();
+                    
+                    for(Task t : atask)
+                    {
+                        if(t.getStatusId().getStatusId()==1)
+                            Completed++;  
+                        Visits v = accessManager.getDistrictFormat(t.getTid());
+                        VisitCount += v.getVisitList().size();
+                    }
+                    
+                    Pending = Assigned - Completed;
+                    
+                    df.setName(Name);
+                    df.setAssigned(Assigned);
+                    df.setCompleted(Completed);
+                    df.setPending(Pending);
+                    df.setVisitCount(VisitCount);
 //                    Gson gson = new Gson();
 //                    actions = gson.toJson(actionList);
 		} 
@@ -67,6 +87,6 @@ public class DistrictDisplayService
                     e.printStackTrace();
 		}
                 
-		return c;
+		return df;
     }
 }

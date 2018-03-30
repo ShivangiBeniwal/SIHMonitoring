@@ -3,7 +3,9 @@ package com.mycompany.DAO;
 import com.mycompany.DTO.Action;
 import com.mycompany.DTO.Address;
 import com.mycompany.DTO.DistrictDisplay;
+import com.mycompany.DTO.List.Visits;
 import com.mycompany.DTO.Task;
+import com.mycompany.DTO.Visit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -80,4 +82,43 @@ public class DistrictDisplay_Access
 		}
 		return actionMap;		
 	}
+        
+        public Visits findVisitByTID(Connection con, int TID) throws SQLException
+        {
+            Visits vs = new Visits();
+            ArrayList<Visit> vlist = new ArrayList<Visit>();
+            
+            try
+            {
+                String SQL ="SELECT * FROM Visits where TID = "+TID;
+		PreparedStatement stmt = con.prepareStatement(SQL);
+		ResultSet rs = stmt.executeQuery();
+                
+                while(rs.next())
+			{
+                            Visit v = new Visit();
+                                Task_Access ta = new Task_Access();
+                                Action_Access aa = new Action_Access();
+                                
+				v.setVid(rs.getInt("VID"));
+                                v.setTid(ta.getTask(con, rs.getInt("TID")));
+                                v.setActionId(aa.getAction(con, rs.getInt("ACTION_ID")));
+                                v.setPicture(rs.getString("PICTURE"));
+                                v.setLat(rs.getBigDecimal("LAT"));
+                                v.setLongitude(rs.getBigDecimal("LONGITUDE"));
+                                v.setRemarkOfficer(rs.getString("REMARK_OFFICER"));
+                                v.setRemarkAdmin(rs.getString("REMARK_ADMIN"));   
+                                
+                                vlist.add(v);
+			}
+                
+                vs.setVisitList(vlist);
+            }
+            catch(Exception e)
+            {
+                System.err.println(e);
+            }            
+            
+            return vs;
+        }
 }

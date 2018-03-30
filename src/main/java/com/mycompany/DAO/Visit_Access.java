@@ -66,7 +66,7 @@ public class Visit_Access
 				visitObj.setVid(rs.getInt("VID"));
                                 visitObj.setTid(ta.getTask(con, rs.getInt("TID")));
                                 visitObj.setActionId(aa.getAction(con, rs.getInt("ACTION_ID")));
-                                visitObj.setPicture(rs.getString("AID"));
+                                visitObj.setPicture(rs.getString("PICTURE"));
                                 visitObj.setLat(rs.getBigDecimal("LAT"));
                                 visitObj.setLongitude(rs.getBigDecimal("LONGITUDE"));
                                 visitObj.setRemarkOfficer(rs.getString("REMARK_OFFICER"));

@@ -1,5 +1,6 @@
 package com.mycompany.api_hackathon;
 
+import com.google.gson.Gson;
 import com.mycompany.DTO.List.Officers;
 import com.mycompany.DTO.Login;
 import com.mycompany.DTO.Officer;
@@ -189,14 +190,14 @@ public class OfficerService implements OfficerServiceInterface
 
     @Override
     @GET
-    @Path("/Login")
+    @Path("/login")
     @Produces("application/json")
-    public Officer officerLogin(Login login) 
+    public Officer officerLogin(@QueryParam("email") String  email,  @QueryParam("password") String pass) 
     {
         Officer c = new Officer();
 		try
 		{
-                    c = accessManager.Login(login);
+                    c = accessManager.Login(email,pass);
 		} 
                 catch (Exception e)
 		{
@@ -207,22 +208,30 @@ public class OfficerService implements OfficerServiceInterface
     }
     
     @POST
-    @Path("/{id}/{pass}/{name}/signup")
+    @Path("/signup")
     @Produces("application/json")
-    public Officer signUPOfficer(@QueryParam("id") String  id,  @QueryParam("pass") String pass , @QueryParam("name") String name) 
+    public Officer signUPOfficer(@QueryParam("email") String  id,  @QueryParam("password") String pass , @QueryParam("name") String name) 
+
+    
     {
-        Officer o = new Officer();
+        Response response = new Response();
 		
                 
                     try 
                     {
-                        o = accessManager.signUpOfficer(id , pass , name);
+                       
+                        Officer o = accessManager.signUpOfficer(id , pass , name);
+                        return o;
+                        
+                       
                     } 
                     catch (Exception ex) 
                     {
+                        response.setStatus(false);
+                        response.setMessage(ex.getMessage());
                         Logger.getLogger(OfficerService.class.getName()).log(Level.SEVERE, null, ex);
+                       
                     }
-                    
-		return o;
+                    return null;
     }
 }

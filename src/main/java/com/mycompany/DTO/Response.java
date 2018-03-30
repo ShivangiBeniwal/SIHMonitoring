@@ -13,6 +13,15 @@ public class Response {
 
 	private boolean status;
 	private String message;
+        private String data;
+        
+        public String getData(){
+            return data;
+        }
+        
+        public void setData(Object object){
+            this.data = data;
+        }
 
 	public boolean isStatus() {
 		return status;
