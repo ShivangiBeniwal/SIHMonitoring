@@ -1,5 +1,6 @@
 package com.mycompany.api_hackathon;
 
+import com.google.gson.Gson;
 import com.mycompany.DTO.List.Officers;
 import com.mycompany.DTO.Login;
 import com.mycompany.DTO.Officer;
@@ -209,26 +210,28 @@ public class OfficerService implements OfficerServiceInterface
     @POST
     @Path("/signup")
     @Produces("application/json")
-    public Response signUPOfficer(@QueryParam("id") String  id,  @QueryParam("password") String pass , @QueryParam("name") String name) 
+    public Officer signUPOfficer(@QueryParam("email") String  id,  @QueryParam("password") String pass , @QueryParam("name") String name) 
+
+    
     {
-		Response response = new Response();
+        Response response = new Response();
 		
                 
                     try 
                     {
-                        accessManager.signUpOfficer(id , pass , name);
+                       
+                        Officer o = accessManager.signUpOfficer(id , pass , name);
+                        return o;
+                        
+                       
                     } 
                     catch (Exception ex) 
                     {
                         response.setStatus(false);
                         response.setMessage(ex.getMessage());
                         Logger.getLogger(OfficerService.class.getName()).log(Level.SEVERE, null, ex);
-                        return response;
+                       
                     }
-                    
-		
-		response.setStatus(true);
-		response.setMessage("Officer signed up successfully");
-		return response;
+                    return null;
     }
 }

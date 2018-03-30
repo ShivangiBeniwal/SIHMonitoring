@@ -65,13 +65,13 @@ public class Officer_AccessManager
 //                System.out.println("login----AccessManager");
         }
         
-        public void signUpOfficer(String userid , String pass , String name) throws Exception
+        public Officer signUpOfficer(String userid , String pass , String name) throws Exception
         {
 		Database db = new Database();
 		Connection con = db.getConnection();
 		Officer_Access access = new Officer_Access();
                 
-                access.signUpOfficer(con, userid , pass , name);
-                System.out.println("signup----AccessManager");
+                return access.signUpOfficer(con, userid , pass , name);
+//                System.out.println("signup----AccessManager");
         }
 }

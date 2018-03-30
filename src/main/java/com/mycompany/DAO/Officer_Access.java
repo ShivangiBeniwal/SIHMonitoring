@@ -2,7 +2,6 @@ package com.mycompany.DAO;
 
 import com.mycompany.DTO.Login;
 import com.mycompany.DTO.Officer;
-import com.mycompany.DTO.SignUp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -168,6 +167,7 @@ public class Officer_Access
 
     public Officer loginOfficer(Connection con, Login login) 
     {
+        
            Officer feedObject = new Officer();
            try{
                
@@ -202,10 +202,12 @@ public class Officer_Access
            return feedObject;
     }
     
-    public SignUp signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
+    public Officer signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
 	{
-            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = "+userid+""   ;
-            SignUp officerObj = new SignUp();
+            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = '"+userid + "'";
+            Officer officerObj = new Officer();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+                
             try
             {
                 Statement smt = con.createStatement(); 
@@ -216,15 +218,32 @@ public class Officer_Access
                     System.out.println(" Already present");
                     
                 }else{
-                     String query = "insert into  OFFICER(EMAIL_ID,PASSWORD, TOKENID, NAME ) values ('"+userid+"',"+password+"' , '"+tokenid+"' , '"+name+"')";  
+                     String query = "insert into  OFFICER(EMAIL_ID , PASSWORD , TOKEN_ID, NAME ) values ('"+userid+"' , '"+password+"' , '"+tokenid+"' , '"+name+"' )";  
                      Statement sm = con.createStatement(); 
                      
                      sm.executeUpdate(query);
-                     officerObj.setTokenId(tokenid);
-                     officerObj.setEmailId(userid);
-                     officerObj.setPassword(password);
-                    
-                    
+                     
+                     
+               PreparedStatement ps = con.prepareStatement("SELECT * from OFFICER where EMAIL_ID = '"+userid+"'" );
+               ResultSet rs1 = ps.executeQuery();
+                       
+			while(rs1.next())
+			{                            
+                                Office_Access oa = new Office_Access();
+                                
+				officerObj.setOid(rs1.getInt("OID"));
+				officerObj.setName(rs1.getString("NAME"));
+				officerObj.setDesignation(rs1.getString("DESIGNATION"));
+				officerObj.setEmailId(rs1.getString("EMAIL_ID"));
+				officerObj.setMobile(rs1.getInt("MOBILE"));
+				officerObj.setAadharCard(rs1.getInt("AADHAR_CARD"));
+                                officerObj.setPassword(rs1.getString("PASSWORD"));
+                                officerObj.setTokenId(rs1.getString("TOKEN_ID"));
+                               
+				officerObj.setDoj(dateFormat.format(new Date().getTime()));
+				officerObj.setRtd(dateFormat.format(new Date().getTime()));
+                                officerObj.setAdminRights(rs1.getString("ADMIN_RIGHTS"));
+                        }                    
                 }
             } 
             catch (SQLException e)
