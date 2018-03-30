@@ -196,7 +196,7 @@ public class Officer_Access
     
     public Officer signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
 	{
-            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = "+userid+""   ;
+            String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = '"+userid+"' "   ;
             Officer officerObj = new Officer();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
                 

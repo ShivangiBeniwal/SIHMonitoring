@@ -29,6 +29,8 @@ public class Address_Access
 				addressObj.setDistrict(rs.getString("DISTRICT"));
 				addressObj.setCity(rs.getString("CITY"));
 				addressObj.setState(rs.getString("STATE"));
+                                addressObj.setLat(rs.getBigDecimal("LAT"));
+                                addressObj.setLongitude(rs.getBigDecimal("LONGITUDE"));
                                 
 				addressMap.put(rs.getInt("AID"), addressObj);
 			}
@@ -56,6 +58,8 @@ public class Address_Access
 				addressObj.setDistrict(rs.getString("DISTRICT"));
 				addressObj.setCity(rs.getString("CITY"));
 				addressObj.setState(rs.getString("STATE"));
+                                addressObj.setLat(rs.getBigDecimal("LAT"));
+                                addressObj.setLongitude(rs.getBigDecimal("LONGITUDE"));
 			}
                         System.out.println("get-----Access");
 		} catch (SQLException e)
@@ -67,7 +71,7 @@ public class Address_Access
         
 	public void addAddress(Connection con, Address o) throws SQLException
 	{
-            String SQL_QUERY = "insert into ADDRESS values(?,?,?,?,?,?)";
+            String SQL_QUERY = "insert into ADDRESS values(?,?,?,?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
@@ -77,6 +81,8 @@ public class Address_Access
                 pst.setString(4, o.getDistrict());
                 pst.setString(5, o.getCity());
                 pst.setString(6, o.getState());
+                pst.setBigDecimal(7, o.getLat());
+                pst.setBigDecimal(8, o.getLongitude());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -89,7 +95,8 @@ public class Address_Access
         
 	public void updateAddress(Connection con, int AID, Address o) throws SQLException
 	{
-            String SQL_QUERY = "update ADDRESS set ADDRESS = ?, PINCODE = ?, DISTRICT = ?, CITY = ?, STATE = ?  where AID = ?";
+            String SQL_QUERY = "update ADDRESS set ADDRESS = ?, PINCODE = ?, DISTRICT = ?, CITY = ?, "
+                    + "STATE = ?, LAT = ?, LONGITUDE = ?  where AID = ?";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
@@ -98,7 +105,9 @@ public class Address_Access
                 pst.setString(3, o.getDistrict());
                 pst.setString(4, o.getCity());
                 pst.setString(5, o.getState());
-                pst.setInt(6, AID);
+                pst.setBigDecimal(6, o.getLat());
+                pst.setBigDecimal(7, o.getLongitude());
+                pst.setInt(8, AID);
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" update-----Access");
