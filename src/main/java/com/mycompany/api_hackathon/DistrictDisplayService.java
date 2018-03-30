@@ -30,8 +30,7 @@ public class DistrictDisplayService
 		try
 		{
                     actionMap = accessManager.getDistrictDisplays(id);
-                    ArrayList<DistrictDisplay> districtDisplayList = new ArrayList(actionMap.values());
-                    
+                    ArrayList<DistrictDisplay> districtDisplayList = new ArrayList(actionMap.values());                    
                     c.setDistrictDisplayList(districtDisplayList);
                     
 //                    Gson gson = new Gson();
