@@ -13,42 +13,22 @@ import java.util.ArrayList;
  */
 public class DistrictDisplay 
 {
-    String Name;
-    ArrayList<Task> Assigned;
-    ArrayList<Task> Complete;    
-    ArrayList<Visit> Visits;
+    ArrayList<Task> Task;
 
-    public String getName() {
-        return Name;
+//    public String getName() {
+//        return Name;
+//    }
+//
+//    public void setName(String Name) {
+//        this.Name = Name;
+//    }
+
+    public ArrayList<Task> getTask() {
+        return Task;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setTask(ArrayList<Task> Task) {
+        this.Task = Task;
     }
-
-    public ArrayList<Task> getAssigned() {
-        return Assigned;
-    }
-
-    public void setAssigned(ArrayList<Task> Assigned) {
-        this.Assigned = Assigned;
-    }
-
-    public ArrayList<Task> getComplete() {
-        return Complete;
-    }
-
-    public void setComplete(ArrayList<Task> Complete) {
-        this.Complete = Complete;
-    }
-
-    public ArrayList<Visit> getVisits() {
-        return Visits;
-    }
-
-    public void setVisits(ArrayList<Visit> Visits) {
-        this.Visits = Visits;
-    }
-    
     
 }

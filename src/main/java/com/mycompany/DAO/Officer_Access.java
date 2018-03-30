@@ -2,7 +2,6 @@ package com.mycompany.DAO;
 
 import com.mycompany.DTO.Login;
 import com.mycompany.DTO.Officer;
-import com.mycompany.DTO.SignUp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -202,10 +201,12 @@ public class Officer_Access
            return feedObject;
     }
     
-    public SignUp signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
+    public Officer signUpOfficer(Connection con, String userid , String password , String name) throws SQLException
 	{
             String SQL_QUERY = "select EMAIL_ID from OFFICER where EMAIL_ID = "+userid+""   ;
-            SignUp officerObj = new SignUp();
+            Officer officerObj = new Officer();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+                
             try
             {
                 Statement smt = con.createStatement(); 
@@ -220,11 +221,28 @@ public class Officer_Access
                      Statement sm = con.createStatement(); 
                      
                      sm.executeUpdate(query);
-                     officerObj.setTokenId(tokenid);
-                     officerObj.setEmailId(userid);
-                     officerObj.setPassword(password);
-                    
-                    
+                     
+                     
+               PreparedStatement ps = con.prepareStatement("SELECT * from OFFICER where EMAIL_ID = '"+userid+"'" );
+               ResultSet rs1 = ps.executeQuery();
+                       
+			while(rs1.next())
+			{                            
+                                Office_Access oa = new Office_Access();
+                                
+				officerObj.setOid(rs.getInt("OID"));
+				officerObj.setName(rs.getString("NAME"));
+				officerObj.setOfficeId(oa.getOffice(con, rs.getInt("OFFICE_ID")));
+				officerObj.setDesignation(rs.getString("DESIGNATION"));
+				officerObj.setEmailId(rs.getString("EMAIL_ID"));
+				officerObj.setMobile(rs.getInt("MOBILE"));
+				officerObj.setAadharCard(rs.getInt("AADHAR_CARD"));
+                                officerObj.setPassword(rs.getString("PASSWORD"));
+                                officerObj.setTokenId(rs.getString("TOKEN_ID"));
+				officerObj.setDoj(dateFormat.format(new Date(rs.getDate("DOJ").getTime())));
+				officerObj.setRtd(dateFormat.format(new Date(rs.getDate("RTD").getTime())));
+                                officerObj.setAdminRights(rs.getString("ADMIN_RIGHTS"));
+                        }                    
                 }
             } 
             catch (SQLException e)
