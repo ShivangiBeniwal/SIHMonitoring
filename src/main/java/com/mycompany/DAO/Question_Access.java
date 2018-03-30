@@ -30,6 +30,7 @@ public class Question_Access
                                 questionObj.setFormat(rs.getString("FORMAT"));
                                 questionObj.setPid(pa.getProgramme(con, rs.getInt("PID")));
                                 questionObj.setVisitType(rs.getString("VISIT_TYPE"));
+                                questionObj.setRequired(rs.getShort("REQUIRED"));
                                 
 				questionMap.put(rs.getInt("QID"), questionObj);
 			}
@@ -58,6 +59,7 @@ public class Question_Access
                                 questionObj.setFormat(rs.getString("FORMAT"));
                                 questionObj.setPid(pa.getProgramme(con, rs.getInt("PID")));
                                 questionObj.setVisitType(rs.getString("VISIT_TYPE"));
+                                questionObj.setRequired(rs.getShort("REQUIRED"));
 			}
                         System.out.println("get-----Access");
 		} catch (SQLException e)
@@ -69,7 +71,7 @@ public class Question_Access
         
 	public void addQuestion(Connection con, Question qs) throws SQLException
 	{
-            String SQL_QUERY = "insert into QUESTION values(?,?,?,?,?)";
+            String SQL_QUERY = "insert into QUESTION values(?,?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
@@ -79,6 +81,7 @@ public class Question_Access
                 pst.setString(4, qs.getFormat());
                 pst.setInt(5, qs.getPid().getPid());
                 pst.setString(6, qs.getVisitType());
+                pst.setShort(7, qs.getRequired());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -91,7 +94,8 @@ public class Question_Access
         
 	public void updateQuestion(Connection con, int QID, Question qs) throws SQLException
 	{
-            String SQL_QUERY = "update QUESTION set QUESTION = ?, DESCRIPTION = ?, FORMAT = ?, PID = ?, VISIT_TYPE = ? where QID = ?";
+            String SQL_QUERY = "update QUESTION set QUESTION = ?, DESCRIPTION = ?, FORMAT = ?, PID = ?, "
+                    + "VISIT_TYPE = ?, REQUIRED = ? where QID = ?";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
@@ -100,6 +104,7 @@ public class Question_Access
                 pst.setString(3, qs.getFormat());
                 pst.setInt(4, qs.getPid().getPid());
                 pst.setString(5, qs.getVisitType());
+                pst.setShort(6, qs.getRequired());
                 pst.setInt(6, QID);
                 
                 int rowCount = pst.executeUpdate();

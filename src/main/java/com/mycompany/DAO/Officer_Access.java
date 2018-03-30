@@ -220,20 +220,18 @@ public class Officer_Access
                ResultSet rs1 = ps.executeQuery();
                        
 			while(rs1.next())
-			{                            
-                                Office_Access oa = new Office_Access();
-                                
-				officerObj.setOid(rs.getInt("OID"));
-				officerObj.setName(rs.getString("NAME"));
-				officerObj.setDesignation(rs.getString("DESIGNATION"));
-				officerObj.setEmailId(rs.getString("EMAIL_ID"));
-				officerObj.setMobile(rs.getInt("MOBILE"));
-				officerObj.setAadharCard(rs.getInt("AADHAR_CARD"));
-                                officerObj.setPassword(rs.getString("PASSWORD"));
-                                officerObj.setTokenId(rs.getString("TOKEN_ID"));
-				officerObj.setDoj(dateFormat.format(new Date(rs.getDate("DOJ").getTime())));
-				officerObj.setRtd(dateFormat.format(new Date(rs.getDate("RTD").getTime())));
-                                officerObj.setAdminRights(rs.getString("ADMIN_RIGHTS"));
+			{                                                            
+				officerObj.setOid(rs1.getInt("OID"));
+				officerObj.setName(rs1.getString("NAME"));
+				officerObj.setDesignation(rs1.getString("DESIGNATION"));
+				officerObj.setEmailId(rs1.getString("EMAIL_ID"));
+				officerObj.setMobile(rs1.getInt("MOBILE"));
+				officerObj.setAadharCard(rs1.getInt("AADHAR_CARD"));
+                                officerObj.setPassword(rs1.getString("PASSWORD"));
+                                officerObj.setTokenId(rs1.getString("TOKEN_ID"));
+				officerObj.setDoj(dateFormat.format(new Date(rs1.getDate("DOJ").getTime())));
+				officerObj.setRtd(dateFormat.format(new Date(rs1.getDate("RTD").getTime())));
+                                officerObj.setAdminRights(rs1.getString("ADMIN_RIGHTS"));
                         }                    
                 }
             } 
