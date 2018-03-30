@@ -55,13 +55,13 @@ public class Officer_AccessManager
                 System.out.println("delete----AccessManager");
         }
         
-        public Officer Login(Login login)throws Exception
+        public Officer Login(String email,String pass)throws Exception
         {
 		Database db = new Database();
 		Connection con = db.getConnection();
 		Officer_Access access = new Officer_Access();
                 
-                return access.loginOfficer(con, login);
+                return access.loginOfficer(con, email,pass);
 //                System.out.println("login----AccessManager");
         }
         

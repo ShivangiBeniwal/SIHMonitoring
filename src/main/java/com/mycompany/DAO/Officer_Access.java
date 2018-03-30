@@ -156,13 +156,13 @@ public class Officer_Access
             }		
 	}
 
-    public Officer loginOfficer(Connection con, Login login) 
+    public Officer loginOfficer(Connection con, String email,String pass) 
     {
         
            Officer feedObject = new Officer();
            try{
                
-               PreparedStatement ps = con.prepareStatement("SELECT OID, PASSWORD from OFFICER where EMAIL_ID = '"+login.getEMAIL_ID()+"'" );
+               PreparedStatement ps = con.prepareStatement("SELECT OID, PASSWORD from OFFICER where EMAIL_ID = '"+email+"'" );
                ResultSet rs = ps.executeQuery();
                        
 			while(rs.next())
@@ -170,10 +170,10 @@ public class Officer_Access
                             int OID= rs.getInt("OID");
                             String actualpass= rs.getString("PASSWORD");
                             
-                            if(login.getPASSWORD().equals(actualpass))
+                            if(pass.equals(actualpass))
                             {
                                 String tokenid = UUID.randomUUID().toString();
-                                PreparedStatement pst = con.prepareStatement( "update OFFICER set TOKENID = '"+tokenid+"' where EMAIL_ID = '"+login.getEMAIL_ID()+"' ");
+                                PreparedStatement pst = con.prepareStatement( "update OFFICER set TOKEN_ID = '"+tokenid+"' where EMAIL_ID = '"+email+"' ");
                                 pst.executeUpdate();                                
                                 
                                 feedObject = getOfficer(con, OID);

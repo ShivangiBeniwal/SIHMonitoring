@@ -190,14 +190,14 @@ public class OfficerService implements OfficerServiceInterface
 
     @Override
     @GET
-    @Path("/Login")
+    @Path("/login")
     @Produces("application/json")
-    public Officer officerLogin(Login login) 
+    public Officer officerLogin(@QueryParam("email") String  email,  @QueryParam("password") String pass) 
     {
         Officer c = new Officer();
 		try
 		{
-                    c = accessManager.Login(login);
+                    c = accessManager.Login(email,pass);
 		} 
                 catch (Exception e)
 		{
