@@ -21,5 +21,5 @@ public interface OfficerServiceInterface
     public Response updateOfficer(Officer o, int OID);
     public Response deleteOfficer(int OID);
     public Officer getOfficer(int OID);
-    public Officer officerLogin(String email,String passs);
+    public Officer officerLogin(String email,String pass);
 }

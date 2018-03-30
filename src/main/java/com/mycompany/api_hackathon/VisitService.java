@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 @Path("/visitService")
 public class VisitService implements VisitServiceInterface
@@ -32,14 +33,14 @@ public class VisitService implements VisitServiceInterface
     @GET
     @Path("/getAll")
     @Produces("application/json")
-    public Visits visits() 
+    public Visits visits(@QueryParam("taskId") int taskId) 
     {
 //		String visits = null;
                 visitMap = new HashMap<Integer,Visit>();
                 Visits c = new Visits();
 		try
 		{
-                    visitMap = accessManager.getVisits();
+                    visitMap = accessManager.getVisits(taskId);
                     ArrayList<Visit> visitList = new ArrayList(visitMap.values());
                     
                     c.setVisitList(visitList);
