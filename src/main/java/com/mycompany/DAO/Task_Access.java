@@ -88,20 +88,19 @@ public class Task_Access
         
 	public void addTask(Connection con, Task t) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
-            String SQL_QUERY = "insert into TASK values(?,?,?,?,?,?,?,?,?)";
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String SQL_QUERY = "insert into TASK values(?,?,?,?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
-                pst.setInt(1, t.getTid());
-                pst.setInt(2, t.getPid().getPid());
-                pst.setInt(3, t.getOid().getOid());
-                pst.setInt(4, t.getAid().getAid());
-                pst.setInt(5, t.getStatusId().getStatusId());
-                pst.setString(6, t.getDescription());
-                pst.setTimestamp(7, new Timestamp(dateFormat.parse(t.getSetDate()).getTime()));
-                pst.setTimestamp(8, new Timestamp(dateFormat.parse(t.getDeadline()).getTime()));
-                pst.setString(9, t.getVisitType());
+                pst.setInt(1, t.getPid().getPid());
+                pst.setInt(2, t.getOid().getOid());
+                pst.setInt(3, t.getAid().getAid());
+                pst.setInt(4, t.getStatusId().getStatusId());
+                pst.setString(5, t.getDescription());
+                pst.setTimestamp(6, new Timestamp(dateFormat.parse(t.getSetDate()).getTime()));
+                pst.setTimestamp(7, new Timestamp(dateFormat.parse(t.getDeadline()).getTime()));
+                pst.setString(8, t.getVisitType());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -114,7 +113,7 @@ public class Task_Access
         
 	public void updateTask(Connection con, int TID, Task t) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String SQL_QUERY = "update TASK set PID = ?, OID = ?, AID = ?, STATUS_ID = ?, DESCRIPTION = ?, SET_DATE = ?, "
                     + "DEADLINE = ?, VISIT_TYPE = ? where TID = ?";
             try

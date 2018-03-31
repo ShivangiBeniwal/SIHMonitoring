@@ -76,17 +76,16 @@ public class Question_Access
         
 	public void addQuestion(Connection con, Question qs) throws SQLException
 	{
-            String SQL_QUERY = "insert into QUESTION values(?,?,?,?,?,?)";
+            String SQL_QUERY = "insert into QUESTION values(?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
-                pst.setInt(1, qs.getQid());
-                pst.setString(2, qs.getQuestion());
-                pst.setString(3, qs.getDescription());
-                pst.setString(4, qs.getFormat());
-                pst.setInt(5, qs.getPid().getPid());
-                pst.setString(6, qs.getVisitType());
-                pst.setShort(7, qs.getRequired());
+                pst.setString(1, qs.getQuestion());
+                pst.setString(2, qs.getDescription());
+                pst.setString(3, qs.getFormat());
+                pst.setInt(4, qs.getPid().getPid());
+                pst.setString(5, qs.getVisitType());
+                pst.setShort(6, qs.getRequired());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -110,7 +109,7 @@ public class Question_Access
                 pst.setInt(4, qs.getPid().getPid());
                 pst.setString(5, qs.getVisitType());
                 pst.setShort(6, qs.getRequired());
-                pst.setInt(6, QID);
+                pst.setInt(7, QID);
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" update-----Access");

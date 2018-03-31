@@ -122,7 +122,7 @@ public class QuestionService implements QuestionServiceInterface
     public Response addQuestion(Question p) 
     {
 		Response response = new Response();
-		if(questionMap.get(p.getQid()) != null)
+		if((p.getQid()!=null)&&questionMap.get(p.getQid()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Question Already Exists");

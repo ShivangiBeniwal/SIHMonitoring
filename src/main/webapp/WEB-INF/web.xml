@@ -15,6 +15,10 @@
         <servlet-name>ProgrammeClient</servlet-name>
         <servlet-class>Client.ProgrammeClient</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login_Officer</servlet-name>
+        <servlet-class>DB.Login_Officer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/Rest/*</url-pattern>
@@ -22,5 +26,10 @@
     <servlet-mapping>
         <servlet-name>ProgrammeClient</servlet-name>
         <url-pattern>/ProgrammeClient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Login_Officer</servlet-name>
+        <url-pattern>/Login_Officer</url-pattern>
     </servlet-mapping>
 </web-app>

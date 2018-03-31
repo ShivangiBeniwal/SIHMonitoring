@@ -68,14 +68,13 @@ public class Answer_Access
         
 	public void addAnswer(Connection con, Answer ans) throws SQLException
 	{
-            String SQL_QUERY = "insert into ANSWER values(?,?,?,?)";
+            String SQL_QUERY = "insert into ANSWER values(?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
-                pst.setInt(1, ans.getAnsId());
-                pst.setString(2, ans.getAnswer());
-                pst.setInt(3, ans.getQid().getQid());
-                pst.setInt(4, ans.getVid().getVid());
+                pst.setString(1, ans.getAnswer());
+                pst.setInt(2, ans.getQid().getQid());
+                pst.setInt(3, ans.getVid().getVid());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");

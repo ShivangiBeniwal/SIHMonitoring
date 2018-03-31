@@ -87,7 +87,7 @@ public class AnswerService implements AnswerServiceInterface
     public Response addAnswer(Answer p) 
     {
 		Response response = new Response();
-		if(answerMap.get(p.getAnsId()) != null)
+		if((p.getAnsId()!=null)&&answerMap.get(p.getAnsId()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Answer Already Exists");

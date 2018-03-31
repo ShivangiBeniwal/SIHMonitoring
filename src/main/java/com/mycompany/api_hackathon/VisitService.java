@@ -84,7 +84,7 @@ public class VisitService implements VisitServiceInterface
     public Response addVisit(Visit p) 
     {
 		Response response = new Response();
-		if(visitMap.get(p.getVid()) != null)
+		if((p.getVid()!=null)&&visitMap.get(p.getVid()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Visit Already Exists");

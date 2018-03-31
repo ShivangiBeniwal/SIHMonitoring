@@ -82,19 +82,18 @@ public class Visit_Access
         
 	public void addVisit(Connection con, Visit t) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
-            String SQL_QUERY = "insert into VISIT values(?,?,?,?,?,?,?,?)";
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String SQL_QUERY = "insert into VISIT values(?,?,?,?,?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
-                pst.setInt(1, t.getVid());
-                pst.setInt(2, t.getTid().getTid());
-                pst.setInt(3, t.getActionId().getActionId());
-                pst.setString(4, t.getPicture());
-                pst.setBigDecimal(5, t.getLat());
-                pst.setBigDecimal(6, t.getLongitude());
-                pst.setString(7, t.getRemarkOfficer());
-                pst.setString(8, t.getRemarkAdmin());
+                pst.setInt(1, t.getTid().getTid());
+                pst.setInt(2, t.getActionId().getActionId());
+                pst.setString(3, t.getPicture());
+                pst.setBigDecimal(4, t.getLat());
+                pst.setBigDecimal(5, t.getLongitude());
+                pst.setString(6, t.getRemarkOfficer());
+                pst.setString(7, t.getRemarkAdmin());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");

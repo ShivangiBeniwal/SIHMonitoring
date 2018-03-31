@@ -83,7 +83,7 @@ public class ProgrammeClient extends HttpServlet {
             System.out.println(res.getStatus());
             System.out.println(res.readEntity(String.class));
         
-            response.sendRedirect(URI+"/getAll");
+            response.sendRedirect("visit_programme.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -87,7 +87,7 @@ public class TaskService implements TaskServiceInterface
     public Response addTask(Task p) 
     {
 		Response response = new Response();
-		if(taskMap.get(p.getTid()) != null)
+		if((p.getTid()!=null)&&taskMap.get(p.getTid()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Task Already Exists");
