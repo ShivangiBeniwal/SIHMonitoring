@@ -65,7 +65,7 @@
         <div class="form-group">
             <label for="Description" class="control-label col-xs-2" style="width: 15em;margin-left: -8em" >Enter Description</label>
             <div class="col-xs-10">
-                <input type="text" class="form-control" id="name" name = "name"  required placeholder="Enter Text Here">
+                <input type="text" class="form-control" id="name" name = "description"  required placeholder="Enter Text Here">
             </div>
         </div>       
          <div class="form-group">

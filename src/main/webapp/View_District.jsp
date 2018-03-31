@@ -50,7 +50,7 @@
                 
                 while(rs.next()){
                     district = rs.getString("DISTRICT");
-                    String url  = "viewTasks_District.jsp?"+"district="+district;
+                    String url  = "ViewTask_District.jsp?"+"district="+district;
                             
                   %> 
                     

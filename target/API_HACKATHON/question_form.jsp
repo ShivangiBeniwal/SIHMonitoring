@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Header_admin.jsp" %>
+<br><br>
 <!DOCTYPE html>
 <html>
     <head>

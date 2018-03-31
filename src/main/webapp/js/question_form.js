@@ -28,8 +28,8 @@ function change_opt(){
     document.getElementById('option').innerHTML = option_div;
 }
 
-function create_question(tid){
-    var text = 'tid='+tid+'&';
+function create_question(PID){
+    var text = 'pid='+PID+'&';
     var question = document.getElementById('question').value;
     text += 'question='+question+'&';
     var quest_format_element = document.getElementById('question_format');
@@ -124,7 +124,7 @@ else{
 }   
 }
 
-function showQuestion(tid){
+function showQuestion(PID){
     if (typeof XMLHttpRequest !== "undefined"){
         xmlHttp1= new XMLHttpRequest();
     }
@@ -136,8 +136,8 @@ function showQuestion(tid){
       return;
     } 
     var url1="show_question.jsp";
-    url1 += "?tid="+tid;
-    console.log(tid);
+    url1 += "?pid="+PID;
+    console.log(PID);
     console.log(url1);
     xmlHttp1.onreadystatechange = questionChange;
     xmlHttp1.open("POST", url1, true);
@@ -163,7 +163,7 @@ function save(){
     //redirect to the task page
 }
 
-function form_delete(tid){
+function form_delete(PID){
     if (typeof XMLHttpRequest !== "undefined"){
         xmlHttp1= new XMLHttpRequest();
     }
@@ -175,8 +175,8 @@ function form_delete(tid){
       return;
     } 
     var url1="delete_question_form.jsp";
-    url1 += "?tid="+tid;
-    console.log(tid);
+    url1 += "?PID="+PID;
+    console.log(PID);
     console.log(url1);
     xmlHttp1.onreadystatechange = del_form;
     xmlHttp1.open("POST", url1, true);

@@ -16,9 +16,10 @@
     </head>
     <body style="background-color: #993300">
         <ul>
-            <li><a href="#home" class="li_left active a_home">Visiting Status</a></li>
-            <li><a href="#news" class="li_left a_home">Programs</a></li>
-            <li><a href="#contact" class="li_left a_home">Officials Enrolled</a></li>
+            <li><a href="#home" class="li_left a_home">Visiting Status</a></li>
+            <li><a href="visit_programme.jsp" class="li_left a_home">Programs</a></li>
+            <li><a href="View_District.jsp" class="li_left a_home">Districts</a></li>
+            <li><a href="task.jsp" class="li_left a_home">Tasks for Districts</a></li>
             <li><a href="Graph.jsp" class="li_left a_home">Statistics</a></li>
             <li><a href="View_District.jsp" class="li_left a_home">District of India</a></li>
             <li><a href="logout.jsp" style="float: right" class="right_tab a_home">Logout</a></li>

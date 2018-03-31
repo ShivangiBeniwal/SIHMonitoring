@@ -5,16 +5,17 @@
  */
 package Client;
 
+import com.mycompany.DAO.Address_Access;
 import com.mycompany.DAO.Database;
-import com.mycompany.DTO.Programme;
+import com.mycompany.DAO.Officer_Access;
+import com.mycompany.DTO.Task;
+import com.mycompany.DAO.Programme_Access;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ import javax.ws.rs.core.Response;
  *
  * @author shivangi
  */
-public class ProgrammeClient extends HttpServlet {
+public class TaskClients extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,42 +49,67 @@ public class ProgrammeClient extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-    String name= request.getParameter("name"),
-            description = request.getParameter("description"),
-            myDate = request.getParameter("date"),
-            URI = "http://localhost:8080/API_HACKATHON/Rest/programmeService";
+//                    int pid   = Integer.parseInt(request.getParameter("programme")),
+               int oid   = Integer.parseInt(request.getParameter("officer")) ,
+                aid =    Integer.parseInt(request.getParameter("address"));
+              
+               System.out.println(pid+" "+oid+" "+aid+"--");
+             
+            String district =  request.getParameter("district"),
+                   
+                   type =  request.getParameter("type"),
+                   description =  request.getParameter("description"),
+                   deadline =  request.getParameter("deadline"),
+                   setdate =  request.getParameter("setdate"),
+                   URI = "http://localhost:8080/API_HACKATHON/Rest/taskService";
         
-        String[] dates = myDate.split("-");
-        myDate=dates[2]+"/"+dates[1]+"/"+dates[0];
-        
-        Date date = null;
-        try {
-           date = new SimpleDateFormat("dd/MM/yyyy").parse(myDate);
+                     String[] dates = setdate.split("-");
+                    setdate=dates[2]+"/"+dates[1]+"/"+dates[0];
+                     Date date = null;
+         try {
+           date = new SimpleDateFormat("dd/MM/yyyy").parse(setdate);
         } catch (ParseException ex) {
-            Logger.getLogger(ProgrammeClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaskClients.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Programme cs = new Programme();
-        try
-        {
-            cs.setDescription(description);
-            cs.setLaunchdate(myDate);
-            cs.setName(name);
+        Task cs = new Task();
+        try{
+	Database db = new Database();
+	Connection con = db.getConnection();
+        Programme_Access p = new Programme_Access ();
+        Address_Access a = new Address_Access ();
+        Officer_Access o = new Officer_Access ();
+        
+     
+       
+        cs.setPid(p.getProgramme(con, pid));
+        cs.setAid(a.getAddress(con, aid));
+        cs.setOid(o.getOfficer(con, oid));
+       
+       
+        cs.setVisitType(type);
+        cs.setDescription(description);
+        cs.setDeadline(deadline);
+        cs.setSetDate(setdate);
         }
         catch(Exception e){
             System.out.println(e);
         }
+      
+       
         
-        Client client = ClientBuilder.newClient();
-        
+            Client client = ClientBuilder.newClient();
+    
             WebTarget webTarget = client.target(URI).path("add");
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response res = invocationBuilder.post(Entity.entity(cs, MediaType.APPLICATION_JSON));
             
             System.out.println(res.getStatus());
             System.out.println(res.readEntity(String.class));
-        
-            response.sendRedirect("visit_programme.jsp");
+            
+            
+            response.sendRedirect("tasks.jsp?txt=success");
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
