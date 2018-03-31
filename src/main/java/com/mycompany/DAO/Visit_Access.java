@@ -16,11 +16,11 @@ import java.util.Map;
 
 public class Visit_Access
 {
-	public Map<Integer,Visit> getVisits(Connection con) throws SQLException
+	public Map<Integer,Visit> getVisits(Connection con,int taskId) throws SQLException
 	{
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Map<Integer,Visit> visitMap = new HashMap<Integer,Visit>();
-		PreparedStatement stmt = con.prepareStatement("SELECT * FROM VISIT");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM VISIT WHERE tid = " + taskId);
 		ResultSet rs = stmt.executeQuery();
 		try
 		{

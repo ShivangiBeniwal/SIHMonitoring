@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Visit_AccessManager
 {
-	public Map<Integer,Visit> getVisits() throws Exception
+	public Map<Integer,Visit> getVisits(int taskId) throws Exception
 	{
 		Map<Integer,Visit> visitMap = new HashMap<Integer,Visit>();
                 
@@ -18,7 +18,7 @@ public class Visit_AccessManager
 		Connection con = db.getConnection();
 		Visit_Access access = new Visit_Access();
                 
-		visitMap = access.getVisits(con);
+		visitMap = access.getVisits(con,taskId);
                 System.out.println("getall----AccessManager");
                 
 		return visitMap;

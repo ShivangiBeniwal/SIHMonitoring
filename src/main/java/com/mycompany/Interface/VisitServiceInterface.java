@@ -16,7 +16,7 @@ import com.mycompany.DTO.Response;
  */
 public interface VisitServiceInterface 
 {
-    public Visits visits();
+    public Visits visits(int taskId);
     public Response addVisit(Visit a);
     public Response updateVisit(Visit a, int AID);
     public Response deleteVisit(int AID);

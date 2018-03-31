@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 @Path("/taskService")
 public class TaskService implements TaskServiceInterface
@@ -33,14 +34,14 @@ public class TaskService implements TaskServiceInterface
     @GET
     @Path("/getAll")
     @Produces("application/json")
-    public Tasks tasks() 
+    public Tasks tasks(@QueryParam("userId") int userId) 
     {
 //		String tasks = null;
                 taskMap = new HashMap<Integer,Task>();
                 Tasks c = new Tasks();
 		try
 		{
-                    taskMap = accessManager.getTasks();
+                    taskMap = accessManager.getTasks(userId);
                     ArrayList<Task> taskList = new ArrayList(taskMap.values());
                     
                     c.setTaskList(taskList);

@@ -16,7 +16,7 @@ import com.mycompany.DTO.Task;
  */
 public interface TaskServiceInterface 
 {
-    public Tasks tasks();
+    public Tasks tasks(int uid);
     public Response addTask(Task t);
     public Response updateTask(Task t, int TID);
     public Response deleteTask(int TID);
