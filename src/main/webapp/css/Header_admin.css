@@ -23,7 +23,7 @@ ul {
     float: left;
 }
 
-li a {
+li .a_home {
     display: block;
     color: white;
     text-align: center;
@@ -31,7 +31,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li .a_home:hover:not(.active) {
     background-color: #111;
 }
 
