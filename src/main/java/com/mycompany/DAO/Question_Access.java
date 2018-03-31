@@ -1,5 +1,6 @@
 package com.mycompany.DAO;
 
+import com.mycompany.DTO.Options;
 import com.mycompany.DTO.Question;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +25,9 @@ public class Question_Access
 			{
 				Question questionObj = new Question();
                                 Programme_Access pa = new Programme_Access();
+                                Integer QID = rs.getInt("QID");
                                 
-				questionObj.setQid(rs.getInt("QID"));
+				questionObj.setQid(QID);
                                 questionObj.setQuestion(rs.getString("QUESTION"));
                                 questionObj.setDescription(rs.getString("DESCRIPTION"));
                                 questionObj.setFormat(rs.getString("FORMAT"));
@@ -32,7 +35,7 @@ public class Question_Access
                                 questionObj.setVisitType(rs.getString("VISIT_TYPE"));
                                 questionObj.setRequired(rs.getShort("REQUIRED"));
                                 
-				questionMap.put(rs.getInt("QID"), questionObj);
+				questionMap.put(QID, questionObj);
 			}
                         System.out.println("getall-----Access");
 		} catch (SQLException e)
@@ -53,7 +56,8 @@ public class Question_Access
 			while(rs.next())
 			{
                                 Programme_Access pa = new Programme_Access();
-				questionObj.setQid(rs.getInt("QID"));
+                                
+				questionObj.setQid(QID);
                                 questionObj.setQuestion(rs.getString("QUESTION"));
                                 questionObj.setDescription(rs.getString("DESCRIPTION"));
                                 questionObj.setFormat(rs.getString("FORMAT"));
@@ -62,7 +66,8 @@ public class Question_Access
                                 questionObj.setRequired(rs.getShort("REQUIRED"));
 			}
                         System.out.println("get-----Access");
-		} catch (SQLException e)
+		} 
+                catch (SQLException e)
 		{		
 			e.printStackTrace();
 		}
@@ -131,4 +136,33 @@ public class Question_Access
                 e.printStackTrace();
             }		
 	}
+        
+        public ArrayList<Options> getOptionsByQID(Connection con, int QID)
+        {
+                ArrayList<Options> oplist = new ArrayList<Options>();
+                
+		try
+		{
+                    
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM OPTIONS where QID = "+QID);
+		ResultSet rs = stmt.executeQuery();
+                Question q = getQuestion(con, QID);
+                
+			while(rs.next())
+			{
+                            Options optObj = new Options();
+				optObj.setQid(q);
+                                optObj.setOptions(rs.getString("OPTIONS"));
+                                optObj.setOpid(rs.getInt("OPID"));
+                                System.out.println(rs.getString("OPTIONS")+" -- "+rs.getInt("OPID"));
+                                oplist.add(optObj);
+			}
+                        System.out.println("get-----Access");
+                        
+		} catch (SQLException e)
+		{		
+			e.printStackTrace();
+		}
+		return oplist;	
+        }
 }

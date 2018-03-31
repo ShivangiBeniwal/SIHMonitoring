@@ -2,8 +2,10 @@ package com.mycompany.Model;
 
 import com.mycompany.DAO.Database;
 import com.mycompany.DAO.Question_Access;
+import com.mycompany.DTO.Options;
 import com.mycompany.DTO.Question;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,20 @@ public class Question_AccessManager
                 System.out.println("getall----AccessManager");
                 
 		return questionMap;
+	}        
+        
+	public ArrayList<Options> getOptionsList(int QID) throws Exception
+	{
+		ArrayList<Options> optionsList = new ArrayList<Options>();
+                
+		Database db = new Database();
+		Connection con = db.getConnection();
+		Question_Access access = new Question_Access();
+                
+		optionsList = access.getOptionsByQID(con, QID);
+                System.out.println("getall----AccessManager");
+                
+		return optionsList;
 	}
         
         public void addQuestion(Question q) throws Exception

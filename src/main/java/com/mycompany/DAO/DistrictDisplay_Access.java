@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,7 +89,7 @@ public class DistrictDisplay_Access
             
             try
             {
-                String SQL ="SELECT * FROM Visits where TID = "+TID;
+                String SQL ="SELECT * FROM Visit where TID = "+TID;
 		PreparedStatement stmt = con.prepareStatement(SQL);
 		ResultSet rs = stmt.executeQuery();
                 

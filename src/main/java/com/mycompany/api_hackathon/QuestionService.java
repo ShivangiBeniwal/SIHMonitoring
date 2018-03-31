@@ -1,6 +1,7 @@
 package com.mycompany.api_hackathon;
 
 import com.mycompany.DTO.List.Questions;
+import com.mycompany.DTO.Options;
 import com.mycompany.DTO.Programme;
 import com.mycompany.DTO.Question;
 import com.mycompany.DTO.Response;
@@ -16,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,12 +41,27 @@ public class QuestionService implements QuestionServiceInterface
 		try
 		{
                     questionMap = accessManager.getQuestions();
-                    ArrayList<Question> questionList = new ArrayList(questionMap.values());
                     
+                    ArrayList<Question> questionList = new ArrayList(questionMap.values());                    
                     c.setQuestionList(questionList);
                     
-//                    Gson gson = new Gson();
-//                    questions = gson.toJson(questionList);
+                    
+                    for(Map.Entry<Integer,Question> entry : questionMap.entrySet())
+                    {
+                        Integer QID = entry.getKey();
+                        Question q = entry.getValue();
+                        
+                        List<Options> listOptions = new ArrayList<Options>();
+                        List<String> finalList = new ArrayList<String>();
+                        listOptions = accessManager.getOptionsList(QID);
+                        
+                        for(Options lisOptions : listOptions)
+                        {
+                            finalList.add(lisOptions.getOptions());
+                        }
+                        q.setOptions(finalList);
+                    }
+                    
 		} 
                 catch (Exception e)
 		{

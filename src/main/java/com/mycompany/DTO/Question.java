@@ -7,6 +7,7 @@ package com.mycompany.DTO;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -70,6 +71,18 @@ public class Question implements Serializable {
     @JoinColumn(name = "PID", referencedColumnName = "PID")
     @ManyToOne(optional = false)
     private Programme pid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
+    private Collection<Options> optionsCollection;
+    
+    List<String> options;
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<String> options) {
+        this.options = options;
+    }
 
     public Question() {
     }
@@ -149,6 +162,15 @@ public class Question implements Serializable {
 
     public void setPid(Programme pid) {
         this.pid = pid;
+    }
+
+    @XmlTransient
+    public Collection<Options> getOptionsCollection() {
+        return optionsCollection;
+    }
+
+    public void setOptionsCollection(Collection<Options> optionsCollection) {
+        this.optionsCollection = optionsCollection;
     }
 
     @Override
