@@ -16,11 +16,11 @@ import java.util.Map;
 
 public class Task_Access
 {
-	public Map<Integer,Task> getTasks(Connection con) throws SQLException
+	public Map<Integer,Task> getTasks(Connection con,int userId) throws SQLException
 	{
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Map<Integer,Task> taskMap = new HashMap<Integer,Task>();
-		PreparedStatement stmt = con.prepareStatement("SELECT * FROM TASK");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM TASK WHERE OID = " + userId);
 		ResultSet rs = stmt.executeQuery();
 		try
 		{

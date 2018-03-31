@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Task_AccessManager
 {
-	public Map<Integer,Task> getTasks() throws Exception
+	public Map<Integer,Task> getTasks(int userId) throws Exception
 	{
 		Map<Integer,Task> taskMap = new HashMap<Integer,Task>();
                 
@@ -18,7 +18,7 @@ public class Task_AccessManager
 		Connection con = db.getConnection();
 		Task_Access access = new Task_Access();
                 
-		taskMap = access.getTasks(con);
+		taskMap = access.getTasks(con,userId);
                 System.out.println("getall----AccessManager");
                 
 		return taskMap;
