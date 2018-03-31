@@ -87,7 +87,7 @@ public class ProgrammeService implements ProgrammeServiceInterface
     public Response addProgramme(Programme p) 
     {
 		Response response = new Response();
-		if(programmeMap.get(p.getPid()) != null)
+		if((p.getPid()!=null)&&programmeMap.get(p.getPid()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Programme Already Exists");

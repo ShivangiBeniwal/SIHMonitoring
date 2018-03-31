@@ -8,6 +8,7 @@ package com.mycompany.DTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v"),
     @NamedQuery(name = "Visit.findByVid", query = "SELECT v FROM Visit v WHERE v.vid = :vid"),
     @NamedQuery(name = "Visit.findByLat", query = "SELECT v FROM Visit v WHERE v.lat = :lat"),
-    @NamedQuery(name = "Visit.findByLongitude", query = "SELECT v FROM Visit v WHERE v.longitude = :longitude")})
+    @NamedQuery(name = "Visit.findByLongitude", query = "SELECT v FROM Visit v WHERE v.longitude = :longitude"),
+    @NamedQuery(name = "Visit.findByDateOfVisit", query = "SELECT v FROM Visit v WHERE v.dateOfVisit = :dateOfVisit")})
 public class Visit implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,6 +59,11 @@ public class Visit implements Serializable {
     @Basic(optional = false)
     @NotNull
     private BigDecimal longitude;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DATE_OF_VISIT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateOfVisit;
     @Lob
     @Size(max = 65535)
     @Column(name = "REMARK_OFFICER")
@@ -79,10 +88,11 @@ public class Visit implements Serializable {
         this.vid = vid;
     }
 
-    public Visit(Integer vid, BigDecimal lat, BigDecimal longitude) {
+    public Visit(Integer vid, BigDecimal lat, BigDecimal longitude, Date dateOfVisit) {
         this.vid = vid;
         this.lat = lat;
         this.longitude = longitude;
+        this.dateOfVisit = dateOfVisit;
     }
 
     public Integer getVid() {
@@ -115,6 +125,14 @@ public class Visit implements Serializable {
 
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
+    }
+
+    public Date getDateOfVisit() {
+        return dateOfVisit;
+    }
+
+    public void setDateOfVisit(Date dateOfVisit) {
+        this.dateOfVisit = dateOfVisit;
     }
 
     public String getRemarkOfficer() {

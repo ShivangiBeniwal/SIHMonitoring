@@ -1,6 +1,5 @@
 package com.mycompany.DAO;
 
-import com.mycompany.DTO.Login;
 import com.mycompany.DTO.Officer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,7 +82,7 @@ public class Officer_Access
         
 	public void addOfficer(Connection con, Officer o) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String SQL_QUERY = "insert into OFFICER values(?,?,?,?,?,?,?,?,?,?,?)";
             try
             {
@@ -113,7 +112,7 @@ public class Officer_Access
         
 	public void updateOfficer(Connection con, int OID, Officer o) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String SQL_QUERY = "update OFFICER set NAME = ?, DESIGNATION = ?, EMAIL_ID = ?, MOIBILE = ?, "
                     + "AADHAR_CARD = ?, PASSWORD = ?, TOKEN_ID = ? ,DOJ = ?, RTD = ?, ADMIN_RIGHTS = ?  where OID = ?";
             try
@@ -244,4 +243,22 @@ public class Officer_Access
             }
             return officerObj;
 	}
+
+    public void gcmUpdate(Connection con, int id, String token) 
+    {
+        String SQL_QUERY = "update OFFICER set GCM_TOKEN = ? where OID = ?";
+            try
+            {
+                PreparedStatement pst = con.prepareStatement(SQL_QUERY);
+                pst.setString(1, token);
+                pst.setInt(2, id);
+                
+                int rowCount = pst.executeUpdate();
+                System.out.println(rowCount+" update-----Access");
+            } 
+            catch (Exception e)
+	    {		
+                e.printStackTrace();
+            }	
+    }
 }

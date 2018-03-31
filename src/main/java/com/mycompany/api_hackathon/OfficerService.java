@@ -108,7 +108,7 @@ public class OfficerService implements OfficerServiceInterface
     public Response addOfficer(Officer p) 
     {
 		Response response = new Response();
-		if(officerMap.get(p.getOid()) != null)
+		if((p.getOid()!=null)&&officerMap.get(p.getOid()) != null)
                 {                    
                     response.setStatus(false);
                     response.setMessage("Officer Already Exists");
@@ -137,7 +137,7 @@ public class OfficerService implements OfficerServiceInterface
     public Response updateOfficer(Officer p, @PathParam("id") int id) 
     {
 		Response response = new Response();
-		if(officerMap.get(p.getOid()) != null)
+		if((p.getOid()!=null)&&officerMap.get(p.getOid()) != null)
                 {
                     try 
                     {
@@ -211,9 +211,7 @@ public class OfficerService implements OfficerServiceInterface
     @Path("/signup")
     @Produces("application/json")
     public Officer signUPOfficer(@QueryParam("email") String  id,  @QueryParam("password") String pass , @QueryParam("name") String name) 
-
-    
-    {
+   {
         Response response = new Response();
 		
                 
@@ -233,5 +231,29 @@ public class OfficerService implements OfficerServiceInterface
                        
                     }
                     return null;
+    }
+    
+    @GET
+    @Path("/{id}/{gcm_token}/gcm")
+    @Produces("application/json")
+    public Response GCMUpdate(@PathParam("id") int  id,  @PathParam("gcm_token") String gcm_token) 
+   {
+        Response response = new Response();        
+        try 
+        {
+            accessManager.gcmUpdate(id , gcm_token);
+            
+            response.setStatus(true);
+            response.setMessage("GCM_TOKEN Added : "+gcm_token);
+            
+        } 
+        catch (Exception ex) 
+        {
+            response.setStatus(false);
+            response.setMessage(ex.getMessage());
+            Logger.getLogger(OfficerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return response;
     }
 }

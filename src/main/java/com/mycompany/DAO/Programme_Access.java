@@ -69,15 +69,14 @@ public class Programme_Access
         
 	public void addProgramme(Connection con, Programme p) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy"); 
-            String SQL_QUERY = "insert into PROGRAMME values(?,?,?,?)";
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+            String SQL_QUERY = "insert into PROGRAMME(NAME,LAUNCHDATE,DESCRIPTION) values(?,?,?)";
             try
             {
                 PreparedStatement pst = con.prepareStatement(SQL_QUERY);
-                pst.setInt(1, p.getPid());
-                pst.setString(2, p.getName());
-                pst.setTimestamp(3, new Timestamp(dateFormat.parse(p.getLaunchdate()).getTime()));
-                pst.setString(4, p.getDescription());
+                pst.setString(1, p.getName());
+                pst.setTimestamp(2, new Timestamp(dateFormat.parse(p.getLaunchdate()).getTime()));
+                pst.setString(3, p.getDescription());
                 
                 int rowCount = pst.executeUpdate();
                 System.out.println(rowCount+" add-----Access");
@@ -90,7 +89,7 @@ public class Programme_Access
         
 	public void updateProgramme(Connection con, int PID, Programme p) throws SQLException
 	{
-            DateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy"); 
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
             String SQL_QUERY = "update PROGRAMME set NAME = ?, LAUNCHDATE = ?, DESCRIPTION = ? where PID = ?";
             try
             {

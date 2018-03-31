@@ -11,8 +11,16 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>ProgrammeClient</servlet-name>
+        <servlet-class>Client.ProgrammeClient</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/Rest/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProgrammeClient</servlet-name>
+        <url-pattern>/ProgrammeClient</url-pattern>
     </servlet-mapping>
 </web-app>

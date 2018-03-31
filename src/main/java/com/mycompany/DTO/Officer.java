@@ -75,6 +75,10 @@ public class Officer implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "TOKEN_ID")
     private String tokenId;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "GCM_TOKEN")
+    private String gcmToken;
     @Basic(optional = false)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -171,6 +175,14 @@ public class Officer implements Serializable {
 
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
+    }
+
+    public String getGcmToken() {
+        return gcmToken;
+    }
+
+    public void setGcmToken(String gcmToken) {
+        this.gcmToken = gcmToken;
     }
 
     public String getDoj() {

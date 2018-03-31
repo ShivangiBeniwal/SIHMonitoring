@@ -74,4 +74,13 @@ public class Officer_AccessManager
                 return access.signUpOfficer(con, userid , pass , name);
 //                System.out.println("signup----AccessManager");
         }
+        
+        public void gcmUpdate(int id, String token) throws Exception
+        {
+		Database db = new Database();
+		Connection con = db.getConnection();
+		Officer_Access access = new Officer_Access();
+                
+                access.gcmUpdate(con, id , token);
+        }
 }
